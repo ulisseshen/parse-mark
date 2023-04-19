@@ -1,23 +1,22 @@
 import 'dart:io';
 
 Future<void> main() async {
-  final fileA = File('exemplo.md');
-  final fileB = File('output_dart.md');
-  final fileC = File('traduzido.md');
+  final page = File('exemplo.md');
+  final parsed = File('output_dart.md');
+  final translated = File('traduzido.md');
 
-  final contentA = fileA.readAsStringSync();
-  final contentB = fileB.readAsStringSync();
-  final contentC = fileC.readAsStringSync();
+  final contentPage = page.readAsStringSync();
+  final contentParsed = parsed.readAsStringSync();
+  final contentTranslated = translated.readAsStringSync();
 
-  final blocksB = contentB.split('---');
-  final blocksC = contentC.split('---');
-  print(blocksB.length);
-  print(blocksC.length);
-  String result = contentA;
+  final blocksParsed = contentParsed.split('---');
+  final blocksTranslated = contentTranslated.split('---');
+  String merged = contentPage;
 
-  for (var i = 0; i < blocksB.length; i++) {
-    result = result.replaceAll(blocksB[i].trim(), blocksC[i].trim());
+  for (var i = 0; i < blocksParsed.length; i++) {
+    merged =
+        merged.replaceAll(blocksParsed[i].trim(), blocksTranslated[i].trim());
   }
 
-  await File('merged.md').writeAsString(result);
+  await File('merged.md').writeAsString(merged);
 }
